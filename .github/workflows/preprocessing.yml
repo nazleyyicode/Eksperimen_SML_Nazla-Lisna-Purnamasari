@@ -4,7 +4,9 @@ on:
   push:
     branches:
       - main
-  workflow_dispatch:
+
+permissions:
+  contents: write
 
 jobs:
   preprocessing:
@@ -21,14 +23,13 @@ jobs:
 
       - name: Install dependencies
         run: |
-          python -m pip install --upgrade pip
-          pip install pandas scikit-learn
+          pip install pandas numpy scikit-learn
 
-      - name: Run automate_Nazla-Lisna-Purnamasari.py
+      - name: Run preprocessing
         run: |
           python preprocessing/automate_Nazla-Lisna-Purnamasari.py
 
-      - name: Upload preprocessing dataset
+      - name: Commit and push preprocessing dataset
         run: |
           git config --global user.name "github-actions"
           git config --global user.email "github-actions@github.com"
